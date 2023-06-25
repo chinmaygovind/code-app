@@ -1,0 +1,23 @@
+.word {
+    margin-right: 1em;
+    display: inline-block;
+}
+
+.box {
+    max-width: 1em;
+    margin: 0.2em;
+    float: left;
+}
+.cryptogram-encrypted {
+    margin: auto;
+}
+.cryptogram-input {
+    max-width: 0.7em;
+    margin: auto;
+}
+
+.highlighted {
+    outline: none;
+    border-color: #f1ff5a;
+    box-shadow: 0 0 10px #f0ffb8;
+}

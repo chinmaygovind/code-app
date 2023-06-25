@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Singleplayer{% endblock %}
+
+{% block style %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/cryptogram.css' %}">
+{% endblock %}
+
+{% block content %}
+<button id = "get-puzzle">New Puzzle</button>
+<button id = "check-puzzle" hidden>Check Answer</button>
+<button id = "reset-puzzle" hidden>Reset</button>
+    <div id = "cryptogram"></div>
+
+
+    
+<script src = "{% static 'js/cryptogram.js' %}"></script>
+{% endblock %}
