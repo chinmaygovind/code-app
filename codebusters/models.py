@@ -16,10 +16,10 @@ class Puzzle(models.Model):
     solution_text = models.CharField(max_length=512)
     key = models.CharField(max_length=512)
     creation_datetime = models.DateTimeField(auto_now=True)
-
+    alphabet = models.CharField(max_length=64)
 
 class Solve(models.Model):
     puzzle_id = models.ForeignKey(Puzzle, on_delete=models.DO_NOTHING)
     solver_id = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
     time_solved = models.DecimalField(decimal_places=3, max_digits=7)
-    solve_datetime = models.DateTimeField()
+    solve_datetime = models.DateTimeField(auto_now=True)
