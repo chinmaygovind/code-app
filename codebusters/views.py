@@ -15,11 +15,7 @@ class FetchPuzzleView(View):
     def get(self, request, *args, **kwargs):
         #get random quote from DB
         cipher = request.GET.get('cipher', 'ARISTOCRAT').upper()
-        myPuzzle = puzzle.getPuzzle(cipher)
-        userPuzzle = {"id": myPuzzle.puzzle_id, 
-                      "type": myPuzzle.puzzle_type,
-                      "encrypted_text": myPuzzle.encrypted_text,
-                      "alphabet": myPuzzle.alphabet}
+        myPuzzle, userPuzzle = puzzle.getPuzzle(cipher)
         return HttpResponse(json.dumps(userPuzzle, cls= DjangoJSONEncoder))
 
 class CheckPuzzleView(View):

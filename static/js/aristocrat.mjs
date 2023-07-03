@@ -1,9 +1,9 @@
 
 //Box(target, encrypted, id, wordID)
-ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 
-class Box {
+export class Box {
     constructor(encrypted, id, wordID, cryptogram, hidden) {
         this.encrypted = encrypted;
         this.id = id;
@@ -47,7 +47,7 @@ class Box {
 
 }
 
-class FrequencyTableBox extends Box {
+export class FrequencyTableBox extends Box {
     constructor(encrypted, id, cryptogram) {
         super(encrypted, id, null, cryptogram, false)
     }
@@ -75,7 +75,7 @@ class FrequencyTableBox extends Box {
 }
 
 //Word([boxes])
-class Word {
+export class Word {
     constructor(letters, id, c) {
         this.letters = letters;
         this.id = id;
@@ -83,6 +83,7 @@ class Word {
     }
 
     display() {
+        console.log("displaying now");
         $("#cryptogram").append(
             '<div class="word" id="word-' + this.id + '"></div>'
         );
@@ -92,7 +93,7 @@ class Word {
     }
 }
 //TODO: refactor this to be Puzzle and make aristos and stuff extend it
-class Cryptogram {
+export class Cryptogram {
     constructor(ciphertext, puzzle_id, alphabet) {
         this.ciphertext = ciphertext.toUpperCase();
         this.puzzle_id = puzzle_id;
@@ -107,7 +108,7 @@ class Cryptogram {
         this.updateTime = this.updateTime.bind(this);
         this.time = Date.now();
         this.startTime = Date.now();
-        this.update = setInterval(this.updateTime, 33);
+        this.updateTimeID = window.setInterval(this.updateTime, 33);
         this.generateTiles();
         this.focusNextEmpty();
         //show timer
@@ -252,7 +253,10 @@ class Cryptogram {
                 if (response.solved === false) {
                     alert("Your response is incorrect. Keep trying, buddy.");
                 } else if (response.solved === true) {
+                    console.log("tryna clear interval")
+                    window.clearInterval(this.updateTimeID);
                     alert("Congratulations! You solved this puzzle in " + response.time_solved + " seconds! That's worse than 98% of users!")
+                    
                 }
             },
             error: function(error) {
@@ -275,47 +279,3 @@ class Cryptogram {
 }
 
 
-
-
-puzzles = [];
-
-class Game {
-
-    createPuzzle() {
-        
-        $.ajax({
-            url: 'fetch-puzzle?cipher=ARISTOCRAT_K1',
-            type: 'GET',
-            success: function(response) {
-                response = JSON.parse(response)
-                console.log(response)
-                for (let i = 0; i < puzzles.length; i++)
-                    clearInterval(puzzles[i].update);
-                let c = new Cryptogram(response.encrypted_text, response.id, response.alphabet);
-                puzzles.push(c);
-            },
-            error: function(error) {
-              console.log('Error:', error.responseText);
-            }
-          });
-    }
-
-    getPuzzle() {
-        return puzzles[puzzles.length - 1];
-    }
-
-}
-
-let g = new Game();
-$('#get-puzzle').on("click", function () {
-    g.createPuzzle()
-    $('#check-puzzle').show()
-    $('#reset-puzzle').show()
- });
-
- $('#check-puzzle').on("click", function() {
-        g.getPuzzle().checkAnswer();
- })
- $('#reset-puzzle').on("click", function() {
-    g.getPuzzle().reset();
-})
