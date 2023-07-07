@@ -21,3 +21,12 @@
     border-color: #f1ff5a;
     box-shadow: 0 0 10px #f0ffb8;
 }
+
+.morbit-input {
+    min-width: 2ch;
+    font-weight: bold;
+}
+
+.response-box {
+    min-width: 200ch;
+}

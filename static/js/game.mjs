@@ -1,8 +1,8 @@
 import * as aristocrat from  "./aristocrat.mjs";
 import * as hill from  "./hill.mjs";
-
+import * as morbit from  "./morbit.mjs";
 var puzzles = [];
-var mode = "HILL";
+var mode = "ARISTOCRAT";
 
 class Game {
 
@@ -36,7 +36,26 @@ class Game {
                 for (let i = 0; i < puzzles.length; i++)
                     clearInterval(puzzles[i].update);
                 let c = new hill.Cryptogram(response.encrypted_text, response.id, response.alphabet, response.matrix);
-                //puzzles.push(c);
+                puzzles.push(c);
+            },
+            error: function(error) {
+              console.log('Error:', error.responseText);    
+            }
+          });
+    }
+
+    createMorbitPuzzle() {
+        
+        $.ajax({
+            url: 'fetch-puzzle?cipher=MORBIT',
+            type: 'GET',
+            success: function(response) {
+                response = JSON.parse(response)
+                console.log(response)
+                for (let i = 0; i < puzzles.length; i++)
+                    clearInterval(puzzles[i].update);
+                let c = new morbit.Cryptogram(response.encrypted_text, response.id, response.alphabet, response.crib);
+                puzzles.push(c);
             },
             error: function(error) {
               console.log('Error:', error.responseText);    
@@ -62,6 +81,9 @@ $('#get-puzzle').on("click", function () {
             break;
         case "HILL":
             g.createHillPuzzle();
+            break;
+        case "MORBIT":
+            g.createMorbitPuzzle();
             break;
     }
     $('#check-puzzle').show()

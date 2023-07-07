@@ -1,3 +1,4 @@
+import { FrequencyTableBox } from "./aristocrat.mjs";
 
 //Box(target, encrypted, id, wordID)
 let ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -15,8 +16,13 @@ export class Box {
     }
 
     editValue() {
-        $("#input-" + this.id).val($("#input-" + this.id).val().toUpperCase().slice(-1));
-        this.cryptogram.focusNextEmpty();
+        $("#input-" + this.id).val($("#input-" + this.id).val().replaceAll('x', '×'));
+        $("#input-" + this.id).val($("#input-" + this.id).val().replaceAll('.', '●'));
+        $("#input-" + this.id).val($("#input-" + this.id).val().replaceAll('-', '–'));
+
+        if ($("#input-" + this.id).val().length == 2){
+            this.cryptogram.focusNextEmpty();
+        }
         //this.cryptogram.setAll(this.encrypted, $("#input-" + this.id).val().toUpperCase().slice(-1))
     }
 
@@ -31,47 +37,56 @@ export class Box {
         $("#letter-" + this.id).append(
             '<h3 class = "cryptogram-encrypted" id="encrypted-' + this.id + '">' + this.encrypted + '</h3>'
         );
-        if (this.encrypted.toUpperCase() != this.encrypted.toLowerCase()) {
+        
         $("#letter-" + this.id).append(
-            '<input class = "cryptogram-input" id="input-' + this.id + '">'
+            '<input class = "cryptogram-input morbit-input" id="input-' + this.id + '">'
         );
-        } else {
-            $("#letter-" + this.id).append(
-                '<input readonly value = "' + this.encrypted + '"class = "cryptogram-input" id="input-' + this.id + '">'
-            );
-        }
         $("#input-" + this.id).on("input", this.editValue);
         $("#input-" + this.id).on("focus", this.highlight);
+
+        $("#letter-" + this.id).append(
+            '<input class = "cryptogram-input morbit-input" id="input-scratchwork-' + this.id + '">'
+        )
         if (this.hidden) {
             $("#input-" + this.id).hide();
+            $("#input-scratchwork-" + this.id).hide();
         }
     }
 
 }
 
-export class MatrixBox extends Box {
+export class MappingBox extends Box {
     constructor(id, cryptogram) {
-        super(null, id, null, cryptogram, false)
+        super(id, id, null, cryptogram, false)
+        this.editValue = this.editValue.bind(this);
     }
 
     display() {
-        $("#replacement-" + this.id).append(
-            '<div class = "box" id="replacement-letter-' + this.id + '"></div>'
-        );
-        $("#replacement-letter-" + this.id).append(
-            '<input class = "cryptogram-input" id="replacement-letter-input-' + this.id + '">'
+        $("#mapping-letter-" + this.id).append(
+            '<h3 class = "cryptogram-encrypted" id="mapping-encrypted-' + this.id + '">' + this.encrypted + '</h3>'
         );
         
-        $("#replacement-letter-input-" + this.id).on("input", this.editValue);
-        $("#replacement-letter-input-" + this.id).on("focus", this.highlight);
+        $("#mapping-letter-" + this.id).append(
+            '<input class = "cryptogram-input" id="mapping-input-' + this.id + '">'
+        );
+        $("#mapping-input-" + this.id).on("input", this.editValue);
+        $("#mapping-input-" + this.id).on("focus", this.highlight);
+        $("#mapping-input-" + this.id).addClass("morbit-input")
         if (this.hidden) {
-            $("#input-" + this.id).hide();
+            $("#mapping-input-" + this.id).hide();
         }
     }
 
     
     editValue() {
-        this.cryptogram.focusNextEmpty();
+        $("#mapping-input-" + this.id).val($("#mapping-input-" + this.id).val().replaceAll('x', '×'));
+        $("#mapping-input-" + this.id).val($("#mapping-input-" + this.id).val().replaceAll('.', '●'));
+        $("#mapping-input-" + this.id).val($("#mapping-input-" + this.id).val().replaceAll('-', '–'));
+
+        if ($("#mapping-input-" + this.id).val().length == 2){
+            this.cryptogram.focusNextEmpty();
+        }
+        //this.cryptogram.setAll(this.encrypted, $("#input-" + this.id).val().toUpperCase().slice(-1))
     }
 }
 
@@ -95,14 +110,14 @@ export class Word {
 }
 //TODO: refactor this to be Puzzle and make aristos and stuff extend it
 export class Cryptogram {
-    constructor(ciphertext, puzzle_id, alphabet, matrix) {
+    constructor(ciphertext, puzzle_id, alphabet, crib) {
         this.ciphertext = ciphertext.toUpperCase();
         this.puzzle_id = puzzle_id;
         this.alphabet = alphabet;
-        this.matrix = matrix;
+        this.crib = crib;
         this.word;
         this.boxes = [];
-        this.matrixBoxes = [];
+        this.mappingBoxes = [];
 
 
         this.updateTime = this.updateTime.bind(this);
@@ -110,7 +125,8 @@ export class Cryptogram {
         this.startTime = Date.now();
         this.updateTimeID = window.setInterval(this.updateTime, 33);
         this.generateTiles();
-        this.generateMatrix()
+        this.generateMap();
+        this.generateResponseBox();
         this.focusNextEmpty();
         //show timer
         $("#cryptogram").append("<div id='timer'></div>");;
@@ -134,31 +150,26 @@ export class Cryptogram {
 
     }
 
-    generateMatrix() {
+    generateMap() {
         //create frequency table
-        $("#cryptogram").append("<table id='matrix'></table>");
-        $("#matrix").append("<tr id = 'encode-matrix'></tr>");
-        $("#encode-matrix").append("<th>Encoding Matrix</th>");
-        for (var row = 0; row < this.matrix.length; row++) {
-            $("#encode-matrix").append(`<tr id='encode-matrix-row-${row}'></tr>`)
-            for (var col = 0; col  < this.matrix[row].length; col++) {
-                $(`#encode-matrix-row-${row}`).append(`<td><b>${this.matrix[row][col]}</b></td>`)
-            }
-        }
-        $("#matrix").append("<tr id = 'decode-matrix'></tr>");
-        $("#decode-matrix").append("<th>Decoding Matrix</th>");
-        var size = this.matrix.length;
-        for (var row = 0; row < this.matrix.length; row++) {
-            $("#decode-matrix").append(`<tr id='decode-matrix-row-${row}'></tr>`)
-            for (var col = 0; col  < this.matrix[row].length; col++) {
-                let b = new MatrixBox((row * size + col), this);
-                $(`#decode-matrix-row-${row}`).append("<td id = 'replacement-" + (row * size + col) + "'></td>")
-                $("#replacement-" + (row * size + col)).append(b);
-                this.matrixBoxes.push(b);
-                b.display();
+        $("#cryptogram").append("<table id='map'></table>");
+        $("#map").append("<tr id = 'mapping'></tr>");
+        $("#mapping").append("<th>Mapping</th>");
+        for (var i = 1; i <= 9; i++) {
+            let b = new MappingBox(i, this);
+            $("#mapping").append(`<td id='mapping-letter-${i}'></td>`)
+            b.display();
+            if (i <= 4) {
+                $(`#mapping-input-${i}`).val(this.crib.substring(2 * i - 2, 2 * i))
+                b.editValue();
             }
         }
        
+    }
+    
+    generateResponseBox() {
+        $("#cryptogram").append("<label><b>Enter Answer:</b> </label>")
+        $("#cryptogram").append("<input id='response' class='response-box'></input>")
     }
 
     highlightAll(encrypted) {
@@ -202,10 +213,7 @@ export class Cryptogram {
     }
 
     checkAnswer() {
-        let answer = ""
-        for (let i = 0; i < this.boxes.length; i++) {
-            answer += $("#input-" + i).val();
-        }
+        let answer = $("#response").val().toUpperCase();
         console.log(answer);
         console.log(this.puzzle_id);
         $.ajax({
@@ -235,12 +243,12 @@ export class Cryptogram {
 
     reset() {
         for (let i = 0; i < this.boxes.length; i++) {
-            if (this.boxes[i].hidden == false && this.alphabet.includes(this.boxes[i].encrypted))
+            if (this.boxes[i].hidden == false)
                 $("#input-" + i).val("");
+                $("#input-scratchwork-" + i).val("");
         }
-        for (let i = 0; i < this.matrixBoxes.length; i++) {
-            if (this.matrixBoxes[i].hidden == false && this.alphabet.includes(this.boxes[i].encrypted))
-                $("#replacement-letter-input-" + i).val("");
+        for (let i = 5; i <= 9; i++) {
+            $("#mapping-input-" + i).val("");
         }
         this.focusNextEmpty();
     }

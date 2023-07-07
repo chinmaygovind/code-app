@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+  <h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <script>
+    $('label[for= "id_username"]').val("Email: ");
+    console.log($('label[for= "id_username"]').val());
+  </script>
+{% endblock %}
