@@ -2,11 +2,19 @@
 
 {% block title %}Login{% endblock %}
 
+{% block style %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
+
 {% block content %}
-<h2>Log In</h2>
+<h2 class="large accent decode">Log In</h2>
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Log In</button>
 </form>
+
+<script src = "{% static 'js/base.js' %}" type="module"></script>
 {% endblock %}

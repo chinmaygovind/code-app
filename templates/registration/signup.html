@@ -2,11 +2,37 @@
 
 {% block title %}Sign Up{% endblock %}
 
+{% block style %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
+
 {% block content %}
-  <h2>Sign up</h2>
+  <h2 class="large accent decode">Sign Up</h2>
   <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+    <div id="form-div">
+      <span>
+        {% csrf_token %}
+        <p>
+          <label for="id_email">Email</label>
+          {{form.email}}
+        </p>
+        <p>
+          <label for="id_username">Username</label>
+          {{form.username}}
+        </p>
+        <p>
+          <label for="id_password1">Password</label>
+          {{form.password1}}
+        </p>
+        <p>
+          <label for="id_password2">Confirm Password</label>
+          {{form.password2}}
+        </p>
+      </span>
+      <span id="hint"></span>
+    </div>
     <button type="submit">Sign Up</button>
   </form>
 
@@ -14,4 +40,7 @@
     $('label[for= "id_username"]').val("Email: ");
     console.log($('label[for= "id_username"]').val());
   </script>
+
+<script src = "{% static 'js/base.js' %}" type="module"></script>
+<script src = "{% static 'js/formhelp.js' %}" type="module"></script>
 {% endblock %}
