@@ -55,17 +55,37 @@ label {
 }
 
 button {
+  display: inline-block;
+  position: relative;
   font: inherit;
   line-height: 1.25em;
   border: none;
   border-radius: 3px;
-  background-color: var(--accent-color);
-  color: var(--bg-color);
-  font-weight: 600;
+  background-color: transparent;
+  color: var(--accent-color);
+  font-weight: 200;
   font-size: 24px;
+  transition: font-weight 0.25s ease-out;
 }
 
-button:focus {
-  background-color: var(--dark-color);
-  color: var(--accent-color);
+button:hover {
+  font-weight: 300;
+}
+
+button:after  {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: bottom left;
+  transition: transform 0.25s ease-out;
+  background-color: var(--accent-color);
+  filter: opacity(0.75);
+}
+
+button:hover:after {
+  transform: scaleX(1);
 }
