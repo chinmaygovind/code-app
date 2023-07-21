@@ -36,6 +36,7 @@ a {
   margin-left: 5vw;
   font-size: 3vw;
   font-weight: 200;
+  line-height: 5vw;
   text-decoration: none;
   transition: font-weight 0.25s ease-out;
 }
@@ -60,4 +61,15 @@ a:hover {
 
 a:hover:after {
   transform: scaleX(1);
+}
+
+.large:has(+ #display-name) {
+  margin-bottom: 0;
+  line-height: 2vh;
+}
+
+#display-name {
+  margin-left: 4vw;
+  font-weight: 300;
+  font-size: 3vw;
 }

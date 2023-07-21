@@ -9,15 +9,18 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <a href="{% url 'singleplayer' %}">Singleplayer</a>
-  
+  <p class="large accent decode">
+    Hello
+    <p id="display-name" class="decode">{{ user.username}}!</p>
+  </p>
+  <p><a href="{% url 'singleplayer' %}">Singleplayer</a></p>
+  <p><a href="">Multiplayer</a></p>
   <p><a href="{% url 'logout' %}">Log Out</a></p>
 
 {% else %}
   <p class="large decode">You are not logged in.</p>
-  <a class="decode" href="{% url 'login' %}">Log In</a>
-  <a class="decode" href="{% url 'signup' %}">Sign Up</a>
+  <p><a class="decode" href="{% url 'login' %}">Log In</a></p>
+  <p><a class="decode" href="{% url 'signup' %}">Sign Up</a></p>
 {% endif %}
 
 <script src = "{% static 'js/base.js' %}" type="module"></script>
