@@ -23,6 +23,10 @@ input:focus {
   border-bottom-color: var(--primary-color);
 }
 
+input:focus + label {
+  color: var(--primary-color);
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 
@@ -34,6 +38,7 @@ input:-webkit-autofill:active{
 label {
   display: inline-block;
   position: absolute;
+  left: 15vw;
   padding-top: 1.5em;
   transform: translate(0,-3em);
 }
@@ -55,13 +60,16 @@ label {
 }
 
 button {
-  display: inline-block;
+  display: inline-flex;
   position: relative;
-  padding: 0.2em;
+  align-items: center;
+  justify-content: center;
+  padding-right: 0.2em;
   border: none;
   border-radius: .25em;
   background-color: var(--dark-color);
   outline: solid 3px var(--dim-color);
+  font-family: inherit;
   font-size: 2em;
   font-weight: 200;
   text-decoration: none;

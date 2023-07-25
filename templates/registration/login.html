@@ -13,15 +13,20 @@
 <form method="post">
   {% csrf_token %}
   <p>
-    <label for="id_username">Email</label>
     {{form.username}}
+    <label for="id_username">Email</label>
   </p>
   <p>
-    <label for="id_password">Password</label>
     {{form.password}}
+    <label for="id_password">Password</label>
   </p>
-  <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z" fill="var(--accent-color)"/></svg>
-  <button class="colored" type="submit">Log In</button>
+  <button class="colored" type="submit">
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 18H54C54.5523 18 55 18.4477 55 19V54C55 54.5523 54.5523 55 54 55H50" stroke="var(--primary-color)" stroke-width="4" stroke-linecap="square"/>
+      <rect x="14" y="30" width="19" height="13" rx="1" fill="var(--primary-color)"/>
+      <path d="M32 47.7962V24.2038C32 23.3446 33.0119 22.8854 33.6585 23.4512L47.1399 35.2474C47.5952 35.6458 47.5952 36.3542 47.1399 36.7526L33.6585 48.5488C33.0119 49.1146 32 48.6554 32 47.7962Z" fill="var(--primary-color)"/>
+      </svg>
+    Log In</button>
 </form>
 
 <script src = "{% static 'js/base.js' %}" type="module"></script>

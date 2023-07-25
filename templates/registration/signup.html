@@ -15,26 +15,32 @@
       <span>
         {% csrf_token %}
         <p>
-          <label for="id_email">Email</label>
           {{form.email}}
+          <label for="id_email">Email</label>
         </p>
         <p>
-          <label for="id_username">Username</label>
           {{form.username}}
+          <label for="id_username">Username</label>
         </p>
         <p>
-          <label for="id_password1">Password</label>
           {{form.password1}}
+          <label for="id_password1">Password</label>
         </p>
         <p>
-          <label for="id_password2">Confirm Password</label>
           {{form.password2}}
+          <label for="id_password2">Confirm Password</label>
         </p>
       </span>
       <span id="hint"></span>
-    </div>
-    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" fill="var(--accent-color)"/></svg>
-    <button class="colored" type="submit">Sign Up</button>
+    </div> 
+    <button class="colored" type="submit">
+      <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="29" cy="26" r="9" fill="var(--primary-color)"/>
+<path d="M14 52C14 50.0302 14.388 48.0796 15.1418 46.2597C15.8956 44.4399 17.0005 42.7863 18.3934 41.3934C19.7863 40.0005 21.4399 38.8956 23.2598 38.1418C25.0796 37.388 27.0302 37 29 37C30.9698 37 32.9204 37.388 34.7403 38.1418C36.5601 38.8956 38.2137 40.0005 39.6066 41.3934C40.9995 42.7863 42.1044 44.4399 42.8582 46.2598C43.612 48.0796 44 50.0302 44 52L29 52L14 52Z" fill="var(--primary-color)"/>
+<path d="M53.5 26V45" stroke="var(--primary-color)" stroke-width="4"/>
+<path d="M44 35.5L63 35.5" stroke="var(--primary-color)" stroke-width="4"/>
+</svg>
+      Sign Up</button>
   </form>
 
   <script>
