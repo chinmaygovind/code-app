@@ -1,75 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200..600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@100..800&family=Cutive+Mono&display=swap');
 
 :root {
-  --bg-color: #121212; 
-  --dark-color: #444444;
-  --main-color: #fff;
-  --accent-color: #f7eba0;
+  --bg-color: #141414; 
+  --text-color: #f9f8f6;
+  --primary-color: #fff098;
+  --dark-color: #1f1f1f;
+  --dim-color: #292929;
 }
 
 html {
   min-height: 100%;
+  font-size: 24px;
 }
 
 body {
+  margin-left: 15vw;
+  margin-top: 5em;
   background-color: var(--bg-color);
-  font-family: 'Source Code Pro', monospace;
-  color: var(--main-color);
+  font-family: 'Azeret Mono', monospace;
+  color: var(--text-color);
 }
 
 .large {
   width: 70vw;
-  margin-left: 3vw;
-  font-size: 5vw;
-  font-weight: 400;
+  font-size: 3em;
+  font-weight: 600;
   white-space: nowrap;
 }
 
-.accent {
-    color: var(--accent-color);
+.colored {
+  color: var(--primary-color);
 }
 
 a {
   display: inline-block;
   position: relative;
-  color: var(--accent-color);
-  margin-left: 5vw;
-  font-size: 3vw;
+  padding: 0.2em;
+  border-radius: .25em;
+  background-color: var(--dark-color);
+  outline: solid 3px var(--dim-color);
+  font-size: 2em;
   font-weight: 200;
-  line-height: 5vw;
   text-decoration: none;
-  transition: font-weight 0.25s ease-out;
-}
-
-a:after  {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 3px;
-  bottom: 0;
-  left: 0;
-  transform: scaleX(0);
-  transform-origin: bottom left;
-  transition: transform 0.25s ease-out;
-  background-color: var(--accent-color);
-  filter: opacity(0.75);
+  transition: all .25s ease-in-out;
 }
 
 a:hover {
-  font-weight: 300;
-}
-
-a:hover:after {
-  transform: scaleX(1);
-}
-
-.large:has(+ #display-name) {
-  margin-bottom: 0;
-  line-height: 2vh;
-}
-
-#display-name {
-  margin-left: 4vw;
-  font-weight: 300;
-  font-size: 3vw;
+  font-weight: 400;
+  background-color: var(--dim-color);
+  outline: solid 3px var(--primary-color);
 }

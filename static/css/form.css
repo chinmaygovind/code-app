@@ -1,25 +1,26 @@
 form {
-    padding-top: 5vw;
-    margin-left: 5vw;
-    line-height: 3em;
-    width: fit-content;
+  padding-top: 5vw;
+  line-height: 3em;
+  width: fit-content;
+  order: 1;
 }
 
 input {
   display: inline-block;
   position: relative;
   top: -3em;
-  background-color: var(--bg-color);
+  background-color: var(--bg-color) !important;
   border: none;
   outline: none;
-  border-bottom: solid 2px var(--main-color);
-  color: var(--accent-color);
+  border-bottom: solid 2px var(--text-color);
+  color: var(--primary-color);
   font-family: inherit;
+  font-size: 1em;
   font-weight: 200;
 }
 
 input:focus {
-  border-bottom-color: var(--accent-color);
+  border-bottom-color: var(--primary-color);
 }
 
 input:-webkit-autofill,
@@ -27,21 +28,20 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active{
     box-shadow: inset 0 0 20px 20px var(--bg-color);
-}
-
-input:-webkit-autofill{
-    -webkit-text-fill-color: var(--accent-color) !important;
+    -webkit-text-fill-color: var(--primary-color);
 }
 
 label {
   display: inline-block;
   position: absolute;
   padding-top: 1.5em;
-  transform: translate(0,-2.5em);
+  transform: translate(0,-3em);
 }
 
 #form-div {
   display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
   gap: 30px;
 }
 
@@ -51,41 +51,25 @@ label {
   top: -3em;
   padding-left: 1vw;
   border-left: solid 3px var(--dark-color);
-  color: var(--dark-color);
+  color: var(--dim-color);
 }
 
 button {
   display: inline-block;
   position: relative;
-  font: inherit;
-  line-height: 1.25em;
+  padding: 0.2em;
   border: none;
-  border-radius: 3px;
-  background-color: transparent;
-  color: var(--accent-color);
+  border-radius: .25em;
+  background-color: var(--dark-color);
+  outline: solid 3px var(--dim-color);
+  font-size: 2em;
   font-weight: 200;
-  font-size: 24px;
-  transition: font-weight 0.25s ease-out;
+  text-decoration: none;
+  transition: all .25s ease-in-out;
 }
 
 button:hover {
-  font-weight: 300;
-}
-
-button:after  {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 3px;
-  bottom: 0;
-  left: 0;
-  transform: scaleX(0);
-  transform-origin: bottom left;
-  transition: transform 0.25s ease-out;
-  background-color: var(--accent-color);
-  filter: opacity(0.75);
-}
-
-button:hover:after {
-  transform: scaleX(1);
+  font-weight: 400;
+  background-color: var(--dim-color);
+  outline: solid 3px var(--primary-color);
 }
