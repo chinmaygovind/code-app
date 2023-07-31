@@ -228,8 +228,7 @@ export class Cryptogram {
 
     updateTime() {
         this.time = (Date.now() - this.startTime)/1000;
-        $("#timer").text("Time: " 
-        + String(Math.floor(100 + Math.floor(this.time/60))).slice(-2) +  
+        $("#timer").text(String(Math.floor(100 + Math.floor(this.time/60))).slice(-2) +  
         ":" + String((100 + (this.time)%60).toFixed(3)).substring(1,));
     }
 
