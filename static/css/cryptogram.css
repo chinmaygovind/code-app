@@ -1,4 +1,4 @@
-.word {
+/*.word {
     margin-right: 1em;
     display: inline-block;
 }
@@ -29,4 +29,105 @@
 
 .response-box {
     min-width: 200ch;
+}*/
+
+#cryptogram {
+    display: flex;
+    flex-wrap: wrap;
+    width: 70vw;
+    font-family: 'Courier New', 'Cutive Mono', monospace;
+    font-size: 1em;
+  }
+  
+  .word {
+    display: flex;
+  }
+  
+  .box {
+    font: inherit;
+    width: 1ch;
+    margin: 0 0.25ch;
+  }
+  
+  .cryptogram-input {
+    width: 1ch;
+    background: none;
+    font: inherit;
+    color: var(--text-color);
+    border: none;
+    border-bottom: solid 1px var(--text-color);
+  }
+  
+  .cryptogram-input[readonly] {
+    border: none !important;
+  }
+  
+  .cryptogram-input:focus {
+    color: var(--primary-color);
+    outline: none;
+    border-bottom: solid 1px var(--primary-color);
+  }
+  
+  .cryptogram-encrypted:has(+ .cryptogram-input:focus) {
+    color: var(--primary-color);
+  }
+
+  .cryptogram-encrypted:has(+ .highlighted) {
+    color: var(--primary-color);
+  }
+
+  .highlighted {
+    color: var(--primary-color);
+    border-bottom: solid 1px var(--primary-color);
+  }
+  
+  #timer {
+    position: fixed;
+    top: 2em;
+    left: 50%;
+    background-color: var(--dim-color);
+    color: var(--primary-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin: auto;
+    transform: translate(-50%,0);
+    font-family: 'Azeret Mono', monospace;
+    font-weight: 500;
+  }
+  
+  #frequency-table {
+    flex-basis: 100%;
+    margin-top: 3em;
+    border: solid 2px var(--dim-color);
+    border-collapse: collapse;
+  }
+  
+  th {
+    border-right: solid 2px var(--dim-color);
+  }
+  
+  td {
+    text-align: center;
+    border-right: solid 2px var(--dim-color);
+    width: 1.5em;
+  }
+  
+  div[id*="replacement-letter-"] {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+  }
+  
+  input[id*="replacement-letter-input-"] {
+    color: var(--primary-color) !important;
+  }
+
+  input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    box-shadow: inset 0 0 20px 20px var(--bg-color);
+    -webkit-text-fill-color: var(--primary-color);
 }

@@ -2,11 +2,32 @@
 
 {% block title %}Login{% endblock %}
 
+{% block style %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
+
 {% block content %}
-<h2>Log In</h2>
+<h2 class="large colored decode">Log In</h2>
 <form method="post">
   {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
+  <p>
+    {{form.username}}
+    <label for="id_username">Email</label>
+  </p>
+  <p>
+    {{form.password}}
+    <label for="id_password">Password</label>
+  </p>
+  <button class="colored" type="submit">
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 18H54C54.5523 18 55 18.4477 55 19V54C55 54.5523 54.5523 55 54 55H50" stroke="var(--primary-color)" stroke-width="4" stroke-linecap="square"/>
+      <rect x="14" y="30" width="19" height="13" rx="1" fill="var(--primary-color)"/>
+      <path d="M32 47.7962V24.2038C32 23.3446 33.0119 22.8854 33.6585 23.4512L47.1399 35.2474C47.5952 35.6458 47.5952 36.3542 47.1399 36.7526L33.6585 48.5488C33.0119 49.1146 32 48.6554 32 47.7962Z" fill="var(--primary-color)"/>
+      </svg>
+    Log In</button>
 </form>
+
+<script src = "{% static 'js/base.js' %}" type="module"></script>
 {% endblock %}

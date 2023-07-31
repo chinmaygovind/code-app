@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@100..800&family=Cutive+Mono&display=swap');
+
+:root {
+  --bg-color: #141414; 
+  --text-color: #f9f8f6;
+  --primary-color: #fff098;
+  --dark-color: #1f1f1f;
+  --dim-color: #292929;
+}
+
+html {
+  min-height: 100%;
+  font-size: 24px;
+}
+
+body {
+  margin-left: 15vw;
+  margin-top: 5em;
+  background-color: var(--bg-color);
+  font-family: 'Azeret Mono', monospace;
+  color: var(--text-color);
+}
+
+.large {
+  width: 70vw;
+  font-size: 3em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.colored {
+  color: var(--primary-color);
+}
+
+a {
+  display: inline-block;
+  position: relative;
+  padding: 0.2em;
+  border-radius: .25em;
+  background-color: var(--dark-color);
+  outline: solid 3px var(--dim-color);
+  font-size: 2em;
+  font-weight: 200;
+  text-decoration: none;
+  transition: all .25s ease-in-out;
+}
+
+a:hover {
+  font-weight: 400;
+  background-color: var(--dim-color);
+  outline: solid 3px var(--primary-color);
+}
